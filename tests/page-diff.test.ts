@@ -46,6 +46,23 @@ test("price, stock, count and version changes are updates", () => {
   }
 });
 
+test("relative times written as words or just now are not news", () => {
+  for (const [before, after] of [
+    ["posted two days ago", "posted three days ago"],
+    ["posted a few hours ago", "posted five hours ago"],
+    ["updated just now", "updated 2 minutes ago"],
+    ["vor zwei Tagen", "vor drei Tagen"],
+  ]) {
+    const diff = diffPage(["Shop", before], ["Shop", after]);
+    assert.deepEqual(diff, { added: [], updated: [], removed: [] }, before);
+  }
+  // A real change next to the time still shows up.
+  assert.deepEqual(
+    diffPage(["Price $40 · posted two days ago"], ["Price $45 · posted three days ago"]),
+    { added: [], updated: ["Price $45 · posted three days ago"], removed: [] },
+  );
+});
+
 test("a removed numbered line is reported even when a similar line remains", () => {
   assert.deepEqual(
     diffPage(["Listing 101 · 2 bed", "Listing 102 · 2 bed"], ["Listing 102 · 2 bed"]),

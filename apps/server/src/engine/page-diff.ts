@@ -14,7 +14,7 @@ export type PageDiff = { added: string[]; updated: string[]; removed: string[] }
 // Relative times ("posted 1 day ago" → "posted 2 days ago", "58 minutes ago" → "1 hour ago")
 // tick on their own, so a change in them alone is not news.
 const relativeTime =
-  /\b(?:\d+|an?|one)\s+(?:sec(?:ond)?|min(?:ute)?|hour|hr|day|week|month|year)s?\s+ago\b|\bvor\s+(?:\d+|einer?|einem)\s+(?:sekunde|minute|stunde|tag|woche|monat|jahr)(?:e|en|n)?\b/giu;
+  /\b(?:\d+|an?|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|a\s+(?:few|couple)|few|several)\s+(?:sec(?:ond)?|min(?:ute)?|hour|hr|day|week|month|year)s?\s+ago\b|\bjust now\b|\bvor\s+(?:\d+|einer?|einem|zwei|drei|vier|fünf|sechs|sieben|acht|neun|zehn|elf|zwölf)\s+(?:sekunde|minute|stunde|tag|woche|monat|jahr)(?:e|en|n)?\b/giu;
 
 /** Text with relative times blanked out: equal results mean only those times changed. */
 export function withoutRelativeTimes(text: string) {
